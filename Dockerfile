@@ -1,18 +1,19 @@
-# Gunakan image Golang standar (Debian) yang punya tools lengkap
+# Gunakan image Golang standar (Debian) yang lengkap
 FROM golang:1.23
 
 # Set folder kerja
 WORKDIR /app
 
-# Copy seluruh kode (termasuk go.mod dan go.sum)
-COPY . .
+# Copy file resep dependensi dulu (agar dicache oleh Docker)
+COPY go.mod go.sum ./
 
-# Download dependency & Pastikan rapi
-RUN go mod tidy
+# DOWNLOAD saja, jangan tidy (karena sudah dirapikan lokal)
 RUN go mod download
 
-# Build aplikasinya
-# CGO_ENABLED=1 penting untuk beberapa library database
+# Copy sisa kode program
+COPY . .
+
+# Build aplikasi dengan dukungan CGO (untuk database)
 RUN CGO_ENABLED=1 GOOS=linux go build -o main .
 
 # Buka port
