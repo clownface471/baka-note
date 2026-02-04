@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Baka Note</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#F4F1EA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <div class="header-left">
+            <h1>Baka Note</h1>
+            <div id="days-counter">Loading...</div>
+            <div class="clocks">
+                <span id="clock-local">YOU --:--</span>
+                <span id="clock-sg" class="sg-time">SG --:--</span>
+            </div>
+        </div>
+        
+        <div class="header-right">
+            <button onclick="toggleTheme()" id="btnTheme" aria-label="Toggle Theme">
+                🌙
+            </button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <button class="nav-btn active" onclick="switchTab('journal')">Journal</button>
+        <button class="nav-btn" onclick="switchTab('bucket')">Dreams</button>
+        <button class="nav-btn" onclick="switchTab('deep')">Deep</button>
+        <button class="nav-btn" onclick="switchTab('memories')">Wall</button>
+    </nav>
+
+    <main id="view-journal" class="view-section active">
+        <div id="feed"></div>
+        <div class="composer">
+            <div class="input-wrapper">
+                <select id="mood">
+                    <option value="Talking">Talking</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Tired">Tired</option>
+                    <option value="Miss You">Miss You</option>
+                    <option value="Excited">Excited</option>
+                </select>
+                <textarea id="content" placeholder="Write something..."></textarea>
+            </div>
+            <button onclick="sendJournal()" class="btn-send-icon">➤</button>
+        </div>
+    </main>
+
+    <main id="view-bucket" class="view-section hidden">
+        <div style="padding: 20px;">
+            <div class="composer" style="border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border);">
+                <div class="input-wrapper" style="box-shadow:none; border:none; background:transparent;">
+                    <input type="text" id="bucketInput" placeholder="Add a new dream...">
+                </div>
+                <button onclick="addBucket()" class="btn-send-icon" style="border-radius: 8px; width: auto; padding: 0 15px; font-size: 0.8rem; font-weight: 600;">ADD</button>
+            </div>
+            <div id="bucket-list"></div>
+        </div>
+    </main>
+
+    <main id="view-deep" class="view-section hidden">
+        <div style="padding: 20px;">
+            <div class="deep-card">
+                <div class="question-text" id="dailyQuestion">Loading...</div>
+                
+                <div id="answerArea">
+                    <textarea id="deepAnswer" placeholder="Your answer..."></textarea>
+                    <button onclick="sendDeep()" style="margin-top:15px; width:100%; padding:12px; background:var(--accent); color:white; border:none; font-weight:600; cursor:pointer; border-radius:8px;">REVEAL ANSWERS</button>
+                </div>
+
+                <div id="revealArea" class="hidden"></div>
+            </div>
+
+            <div class="plant-section">
+                <h3>Plant a Question for the Future 🌱</h3>
+                <div class="composer plant-composer">
+                    <div class="input-wrapper">
+                        <input type="text" id="newQInput" placeholder="Type a deep question here...">
+                    </div>
+                    <button onclick="submitNewQuestion()" class="btn-plant">PLANT</button>
+                </div>
+                <p class="plant-subtext">It will appear randomly someday.</p>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-memories" class="view-section hidden">
+        <div style="padding:20px; text-align:center;">
+            <button onclick="document.getElementById('fileInput').click()" style="background:var(--accent); color:white; padding:10px 25px; border:none; border-radius:20px; font-weight:600; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">+ ADD POLAROID</button>
+            <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="uploadMemory(this)">
+        </div>
+        <div id="memory-grid" class="memory-grid"></div>
+    </main>
+
+    <div style="position: absolute; top: 20px; right: 60px; z-index: 20;">
+        <input type="text" id="myName" class="identity-box" placeholder="Name" autocomplete="off">
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

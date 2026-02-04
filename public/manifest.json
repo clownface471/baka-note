@@ -1,0 +1,21 @@
+{
+  "name": "Baka Note - Our Space",
+  "short_name": "Baka Note",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1F2023",
+  "theme_color": "#1F2023",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://api.iconify.design/twemoji:saturn.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "https://api.iconify.design/twemoji:saturn.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
